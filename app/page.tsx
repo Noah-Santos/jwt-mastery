@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import {redirect} from 'next/navigation';
 import {getSession, login} from './lib';
 import styles from './Styles/login.module.css';
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
+import Link from 'next/link';
 
 export default async function Login() {
   const session = await getSession();
@@ -28,7 +28,7 @@ export default async function Login() {
         </div>
         <button type="submit" className={styles.button}>Login</button>
       </form>
-
+      <Link href='/register' className={styles.register}>Register</Link>
     </section>
   );
 }
