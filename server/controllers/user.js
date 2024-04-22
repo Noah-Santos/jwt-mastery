@@ -16,14 +16,14 @@ const readAllUsers = async (req, res) => {
 const createUser = async(req, res) => {
     try {
         const {username, password} = req.body;
-        let item = await User.findOne({email: email});
+        let item = await User.findOne({username: username});
         let allUsers = await User.find({});
         if(!username || !password){
             console.log("not all fields are filled out");
             return res.json({data: [], success: false, msg: "Please fill out all fields"})
         } else if(item != null) {
-            console.log("a user with that email already exists");
-            return res.json({data: [], success: false, msg: "that email's already taken, try another"})
+            console.log("a user with that username already exists");
+            return res.json({data: [], success: false, msg: "that username's already taken, try another"})
         } else {
             let itemTwo = await User.create({username:username, id:allUsers.length+1, password:password});
             res.json({success: true, data: itemTwo});

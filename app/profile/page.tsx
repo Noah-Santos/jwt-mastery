@@ -24,9 +24,9 @@ export default async function Profile() {
             </nav>
                     
             <div className={styles.profileContent}>
-                <p className={styles.profileInfo}><strong>Name:</strong> {info.user.name}</p>
-                <p className={styles.profileInfo}><strong>Email:</strong> {info.user.email}</p>
+                <p className={styles.profileInfo}><strong>Username:</strong> {info.user.username}</p>
                 <p className={styles.profileInfo}><strong>Password:</strong> {info.user.password}</p>
+                <p className={styles.profileInfo}><strong>Id:</strong> {info.user.id}</p>
                 <p className={styles.profileInfo}><strong>Session Time:</strong> {info.expires}</p>
             </div>
             {/* <pre>{JSON.stringify(session,null,2)}</pre> */}

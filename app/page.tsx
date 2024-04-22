@@ -1,12 +1,11 @@
 import {redirect} from 'next/navigation';
-import {getSession, login} from './lib';
-import styles from './Styles/login.module.css';
+import {login} from './lib';
+import styles from './Styles/form.module.css';
 import { BsFillPersonFill } from "react-icons/bs";
 import { BiSolidLockAlt } from "react-icons/bi";
 import Link from 'next/link';
 
 export default async function Login() {
-  const session = await getSession();
   return (
     <section className={styles.cont}>
       <form className={styles.form} action={async (formdata)=>{
@@ -17,8 +16,8 @@ export default async function Login() {
       }}>
         <h1 className={styles.title}>Login</h1>
         <div className={styles.infoCont}>
-          <label htmlFor="email" className={styles.label}>Email:</label>
-          <input type="email" name="email" id='email' placeholder='Email' className={styles.input}/>
+          <label htmlFor="username" className={styles.label}>Username:</label>
+          <input type="username" name="username" id='username' placeholder='Username' className={styles.input}/>
           <BsFillPersonFill className={styles.icon}></BsFillPersonFill>
         </div>
         <div className={styles.infoCont}>
@@ -27,8 +26,8 @@ export default async function Login() {
           <BiSolidLockAlt className={styles.icon}></BiSolidLockAlt>
         </div>
         <button type="submit" className={styles.button}>Login</button>
+        <p className={styles.switchText}>Don't have an account? <Link href='/register' className={styles.switch}>Register here</Link></p>
       </form>
-      <Link href='/register' className={styles.register}>Register</Link>
     </section>
   );
 }

@@ -22,19 +22,51 @@ export async function decrypt(input:string): Promise<any>{
 
 export async function login(formData: FormData){
     // verify credentials and get the user
-    // console.log(process.env.SECRET_EMAIL)
-    if(formData.get('email') === process.env.SECRET_EMAIL && formData.get('password') === process.env.SECRET_PASSWORD){
-        const user = {email:process.env.SECRET_EMAIL, password:process.env.SECRET_PASSWORD, name:'Sherman'}
-        
-        // create the session
-        const expires = new Date(Date.now() + 2 * 60 * 1000);
-        const session = await encrypt({user, expires});
+    let users = await fetch('http://localhost:5000/users').then(response =>{
+        return response.json();
+    }).then(res=>{
+        return res;
+    });
 
-        // save the session in a cookie
-        cookies().set('session', session, {expires, httpOnly:true});
-        return true;
+    for (const person of users.data) {
+        if(formData.get('username') === person.username && formData.get('password') === person.password){
+            const user = {username:person.username, password:person.password, id: person.id}
+            
+            // create the session
+            const expires = new Date(Date.now() + 2 * 60 * 1000);
+            const session = await encrypt({user, expires});
+
+            // save the session in a cookie
+            cookies().set('session', session, {expires, httpOnly:true});
+            return true;
+        }
     }
     return false;
+}
+
+export async function register(formData: FormData){
+    let used:boolean = false;
+    let users = await fetch('http://localhost:5000/users').then(response =>{
+        return response.json();
+    }).then(res=>{
+        return res;
+    });
+
+    for (const person of users.data) {
+        if (formData.get('username') === person.username) {
+            used = true;
+        }
+    }
+
+    if(!used){
+        await fetch('http://localhost:5000/users',{
+            method: 'POST',
+            body: JSON.stringify({username: formData.get('username'), password: formData.get('password')}),
+            headers: {'Content-Type': 'application/json'},
+        })
+    }
+
+    return used;
 }
 
 export async function logout(){
