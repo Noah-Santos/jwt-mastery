@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 # JWT Mastery
 
-This project uses MongoDB as a database to store user accounts. Their accounts consist of a username, password, and id.When the user registers, they create an account that it stored in the database.
+This project uses MongoDB as a database to store user accounts. Their accounts consist of a username, password, and id. When the user registers, they create an account that it stored in the database.
 
 When the users sign in, the server creates a jwt that will serve as a session for the user. The JWT expires after 2 minutes of inactivity.
 
